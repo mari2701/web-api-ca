@@ -1,0 +1,146 @@
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import { useNavigate } from "react-router";
+import { styled } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
+const SiteHeader = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const [anchorElMovies, setAnchorElMovies] = useState(null);
+  const openMovies = Boolean(anchorElMovies);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  
+  const navigate = useNavigate();
+
+
+  const menuOptions = [
+    { label: "Home", path: "/", fontFamily: "'Delius Swash Caps', cursive" },
+    { label: "Favorites", path: "/movies/favorites", fontFamily: "'Delius Swash Caps', cursive" },
+    { label: "Must Watch", path: "/movies/mustwatch", fontFamily: "'Delius Swash Caps', cursive" },
+  ];
+
+  const moviesMenuOptions = [
+    { label: "Upcoming", path: "/movies/upcoming", fontFamily: "'Delius Swash Caps', cursive" },
+    { label: "Top Rated", path: "/movies/topRated", fontFamily: "'Delius Swash Caps', cursive" },
+    { label: "Now Playing", path: "/movies/now_playing", fontFamily: "'Delius Swash Caps', cursive" },
+  ];
+
+  const handleMenuSelect = (pageURL) => {
+    setAnchorEl(null);
+    setAnchorElMovies(null);
+    navigate(pageURL);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMoviesMenu = (event) => {
+    setAnchorElMovies(event.currentTarget);
+  };
+
+  return (
+    <>
+      <AppBar position="fixed" sx={{ backgroundColor: "#cf235c6c" }}>
+        <Toolbar>
+          <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "'Delius Swash Caps', cursive" }}> 
+            tmdb 
+          </Typography>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+           °❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･―୨୧⋆˚all about movies˚⋆୨୧―°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･
+          </Typography>
+            {isMobile ? (
+              <>
+                <IconButton
+                  aria-label="menu"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={open}
+                  onClose={() => setAnchorEl(null)}
+                >
+                  {[...menuOptions, ...moviesMenuOptions].map((opt) => (
+                    <MenuItem
+                      key={opt.label}
+                      onClick={() => handleMenuSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : (
+              <>
+                {menuOptions.map((opt) => (
+                  <Button
+                    key={opt.label}
+                    color="inherit"
+                    onClick={() => handleMenuSelect(opt.path)}
+                  >
+                    {opt.label}
+                  </Button>
+                ))}
+                <Button
+                  color="inherit"
+                  onClick={handleMoviesMenu}
+                >
+                  Movies
+                </Button>
+                <Menu
+                  anchorEl={anchorElMovies}
+                  open={openMovies}
+                  onClose={() => setAnchorElMovies(null)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  {moviesMenuOptions.map((opt) => (
+                    <MenuItem
+                      key={opt.label}
+                      onClick={() => handleMenuSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            )}
+        </Toolbar>
+      </AppBar>
+      <Offset />
+    </>
+  );
+};
+
+export default SiteHeader;
