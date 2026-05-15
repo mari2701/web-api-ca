@@ -1,11 +1,8 @@
 
 
-export const getMovies = (args) => {
-  const [, { year }] = args.queryKey;
-  const yearQuery = year ? `&primary_release_year=${year}` : "";
-
+export const getMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1${yearQuery}`
+    `http://localhost:8080/api/movies/discover`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -19,7 +16,6 @@ export const getMovies = (args) => {
   });
 };
 
-//  return fetch(`http://localhost:8080/api/movies/${id}`)
 
 export const getMovie = (args) => {
   //console.log(args)
