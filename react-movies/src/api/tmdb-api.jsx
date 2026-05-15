@@ -1,3 +1,5 @@
+
+
 export const getMovies = (args) => {
   const [, { year }] = args.queryKey;
   const yearQuery = year ? `&primary_release_year=${year}` : "";
@@ -17,6 +19,7 @@ export const getMovies = (args) => {
   });
 };
 
+//  return fetch(`http://localhost:8080/api/movies/${id}`)
 
 export const getMovie = (args) => {
   //console.log(args)
@@ -94,8 +97,7 @@ export const getMovie = (args) => {
    });
   };
 
-  // Insert your TMDB API key in the .env file as VITE_TMDB_KEY
-  // Example: VITE_TMDB_KEY=your_api_key_here
+
 
   export const getUpcomingMovies = () => {
     return fetch(

@@ -1,15 +1,12 @@
 // other imports
+import moviesRouter from './api/movies';   
 import cors from 'cors';
-
 import dotenv from 'dotenv';
 import express from 'express';
 import './db';
 //... other imports
 import usersRouter from './api/users';
 import authenticate from './authenticate';
-
-
-
 dotenv.config();
 
 const errHandler = (err, req, res, next) => {
@@ -35,14 +32,12 @@ app.use(express.json());
 
 
 //Users router
-app.use('/api/users', usersRouter);
 
+app.use('/api/users', authenticate, usersRouter);
+app.use('/api/movies', moviesRouter);
 
 app.use(errHandler);
-
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
-
-app.use('/api/tasks', authenticate, tasksRouter);
