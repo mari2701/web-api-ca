@@ -33,7 +33,7 @@ app.use(express.json());
 
 //Users router
 
-app.use('/api/users', authenticate, usersRouter);
+app.use('/api/users',  usersRouter);
 app.use('/api/movies', moviesRouter);
 
 app.use(errHandler);
