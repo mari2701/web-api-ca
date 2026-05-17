@@ -49,8 +49,8 @@ export const getMovie = (args) => {
       return response.json();
     })
     .catch((error) => {
-      throw error;
-    });
+      throw error
+   });
   };
 
 
@@ -68,8 +68,8 @@ export const getMovie = (args) => {
       return response.json();
     })
     .catch((error) => {
-      throw error;
-    });
+      throw error
+   });
   };
 
 
@@ -87,8 +87,8 @@ export const getMovie = (args) => {
       return response.json();
     })
     .catch((error) => {
-      throw error;
-    });
+      throw error
+   });
   };
 
 
@@ -157,6 +157,6 @@ export const getMovie = (args) => {
       return response.json();
     })
     .catch((error) => {
-      throw error;
-    });
+      throw error
+   });
   };

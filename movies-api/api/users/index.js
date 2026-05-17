@@ -12,24 +12,28 @@ router.get('/', async (req, res) => {
     res.status(200).json(users);
 });
 
+//.... code as before
+
 // register(Create)/Authenticate User
 router.post('/', asyncHandler(async (req, res) => {
-    if (req.query.action === 'register') {  // if action is 'register' then save to DB
-        await User(req.body).save();
-        res.status(201).json({
-            code: 201,
-            msg: 'Successful created new user.',
-        });
-    }
-    else {  // Must be an authenticate then!!! Query the DB and check if there's a match
-        const user = await User.findOne(req.body);
-        if (!user) {
-            return res.status(401).json({ code: 401, msg: 'Authentication failed' });
-        }else{
-            return res.status(200).json({ code: 200, msg: "Authentication Successful", token: 'TEMPORARY_TOKEN' });
+    try {
+        if (!req.body.username || !req.body.password) {
+            return res.status(400).json({ success: false, msg: 'Username and password are required.' });
         }
+        if (req.query.action === 'register') {
+            await registerUser(req, res);
+        } else {
+            await authenticateUser(req, res);
+        }
+    } catch (error) {
+        // Log the error and return a generic error message
+        console.error(error);
+        res.status(500).json({ success: false, msg: 'Internal server error.' });
     }
 }));
+
+// ... Code as before
+
 
 async function registerUser(req, res) {
     // Add input validation logic here

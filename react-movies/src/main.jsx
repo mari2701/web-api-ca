@@ -14,6 +14,8 @@ import NowPlayingMoviesPage from "./pages/nowPlayingMoviesPage";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
+import LoginPage from "./pages/loginPage";
+import SignupPage from "./pages/signupPage";
 
 
 
@@ -36,6 +38,7 @@ const App = () => {
         <SiteHeader />
         <MoviesContextProvider>
      <Routes>
+      
   <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
   <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
   <Route path="/movies/mustwatch" element={<MustWatchMoviesPage />} />
@@ -47,8 +50,11 @@ const App = () => {
 
   <Route path="/movies/:id" element={<MoviePage />} />  {/* keep this LOW */}
 
-  <Route path="/" element={<HomePage />} />
-  <Route path="*" element={<Navigate to="/" />} />
+  <Route path="/login" element={<LoginPage />} />
+  <Route path="/signup" element={<SignupPage />} />
+  <Route path="/" element={<Navigate to="/login" />} />
+  <Route path="/home" element={<HomePage />} />
+  <Route path="*" element={<Navigate to="/login" />} />
 </Routes>
         </MoviesContextProvider>
       </BrowserRouter>

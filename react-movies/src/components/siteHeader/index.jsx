@@ -28,7 +28,7 @@ const SiteHeader = () => {
 
 
   const menuOptions = [
-    { label: "Home", path: "/", fontFamily: "'Delius Swash Caps', cursive" },
+    { label: "Home", path: "/home", fontFamily: "'Delius Swash Caps', cursive" },
     { label: "Favorites", path: "/movies/favorites", fontFamily: "'Delius Swash Caps', cursive" },
     { label: "Must Watch", path: "/movies/mustwatch", fontFamily: "'Delius Swash Caps', cursive" },
   ];
